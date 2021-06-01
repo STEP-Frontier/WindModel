@@ -97,9 +97,13 @@ if __name__ == '__main__':
     speed_vec_ave = np.zeros(nalt)
     theta_vec_ave = np.zeros(nalt)
     p_log = []
+    # 平均値i.e.楕円の中心点
     means_log = []
+    # 楕円の幅
     w_log = []
+    # 楕円の高さ
     h_log = []
+    # 楕円の座標軸に対する傾き
     theta_log = []
     print(nalt)
     for i in range(nalt):
@@ -115,6 +119,7 @@ if __name__ == '__main__':
         cov_tmp = np.cov(wind_u, wind_v)
         l, v = np.linalg.eig(cov_tmp)
 
+        # 95%確率楕円の取得
         el = ConfidenceEllipse((np.array([wind_u, wind_v])).transpose(), 0.95)
         p = el.get_point()
         means, w, h, theta = el.get_params()
@@ -145,6 +150,8 @@ if __name__ == '__main__':
     #plt.plot(speed_vec_ave, alt_array)
     #plt.show()
 
+#   Plot 3D
+#-----------------------------------------------------------------------
     p_log = np.array(p_log)
     means_log = np.array(means_log)
     w_log = np.array(w_log)
